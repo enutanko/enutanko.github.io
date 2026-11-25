@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>えぬﾀﾝｺ | OFFICIAL SITE</title>
+<meta name="theme-color" content="#0b1238">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="えぬﾀﾝｺ OFFICIAL SITE">
+<meta property="og:title" content="えぬﾀﾝｺ | OFFICIAL SITE">
+<meta property="og:description" content="配信者・歌い手 えぬﾀﾝｺの公式サイト。配信予定・歌・おみくじ・スタンプカードなど。">
+<meta property="og:image" content="assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="えぬﾀﾝｺの公式サイト。配信予定・歌・おみくじ・スタンプカードなど。">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="えぬﾀﾝｺ">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="opening" id="opening" role="button" tabindex="0" aria-label="タップしてはじめる">
+  <img class="lg" src="assets/logo.png" alt="えぬﾀﾝｺ">
+  <img class="ch" src="assets/chibi-dress.png" alt="">
+  <div class="tap">TAP TO START<small>タップしてはじめる</small></div>
+</div>
+
+<div class="app">
+  <header class="top">
+    <div class="logo-wrap"><img src="assets/logo.png" alt="えぬﾀﾝｺ"></div>
+    <div class="sub">OFFICIAL SITE</div>
+  </header>
+
+  <nav class="tabs" aria-label="メニュー">
+    <div class="tablist" role="tablist">
+      <button class="tab" role="tab" id="t-home" aria-controls="home" aria-selected="true" data-tab="home">HOME<small>トップ</small></button>
+      <button class="tab" role="tab" id="t-profile" aria-controls="profile" aria-selected="false" data-tab="profile">PROFILE<small>プロフィール</small></button>
+      <button class="tab" role="tab" id="t-news" aria-controls="news" aria-selected="false" data-tab="news">NEWS<small>お知らせ</small></button>
+      <button class="tab" role="tab" id="t-live" aria-controls="live" aria-selected="false" data-tab="live">LIVE<small>配信予定</small></button>
+      <button class="tab" role="tab" id="t-music" aria-controls="music" aria-selected="false" data-tab="music">MUSIC<small>歌・作品</small></button>
+      <button class="tab" role="tab" id="t-fan" aria-controls="fan" aria-selected="false" data-tab="fan">FAN<small>ファン向け</small></button>
+      <button class="tab" role="tab" id="t-links" aria-controls="links" aria-selected="false" data-tab="links">LINKS<small>リンク</small></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HOME -->
+    <section class="panel on" id="home" role="tabpanel" aria-labelledby="t-home">
+      <div class="hero2">
+        <span class="bubble">ようこそ！</span>
+        <img class="stand" src="assets/stand-crown-cut.png" alt="王冠をつけたえぬﾀﾝｺの立ち絵">
+        <div class="hcopy">
+          <p class="copy">配信と歌でゆめかわな時間をお届けします。<br>ゆっくりしていってね。</p>
+          <div class="chips">
+            <span class="chip solid">配信者・VTuber</span>
+            <span class="chip solid">歌い手・シンガー</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="h">THIS WEEK <span>今週の配信予定</span><i class="badge">SAMPLE</i></h2>
+      <div class="week" id="weekMini"></div>
+      <div id="nextEvt"></div>
+
+      <h2 class="h">NEWS <span>お知らせ</span><i class="badge">SAMPLE</i></h2>
+      <div class="list" id="newsMini"></div>
+
+      <h2 class="h">X POST <span>最新のポスト</span></h2>
+      <div class="xbox" id="xbox"></div>
+
+      <div class="install" id="install">
+        <b>📲 ホーム画面に追加してアプリみたいに使えます</b>
+        <p id="installTxt"></p>
+        <div class="row2"><button type="button" class="pri" id="installBtn" hidden>追加する</button><button type="button" id="installClose">あとで</button></div>
+      </div>
+
+      <h2 class="h">ACTIVE ON <span>活動場所</span></h2>
+      <div class="chips">
+        <span class="chip">X</span><span class="chip">YouTube</span><span class="chip">TikTok</span>
+        <span class="chip">Mirrativ</span><span class="chip">Twitch</span>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="panel" id="profile" role="tabpanel" aria-labelledby="t-profile">
+      <div class="card">
+        <div class="pf">
+          <img src="assets/chibi-dress.png" alt="ワンピース姿のちびキャラ">
+          <div>
+            <div class="nm">えぬﾀﾝｺ</div>
+            <div class="en">ENUTANKO</div>
+            <div class="chips"><span class="chip solid">配信者</span><span class="chip solid">歌い手</span></div>
+          </div>
+        </div>
+        <p class="soon" style="margin-top:14px">プロフィール文は準備中です。</p>
+      </div>
+      <h2 class="h">GALLERY <span>イラスト</span></h2>
+      <div class="gallery">
+        <figure><img src="assets/stand-hat.jpg" alt="帽子の衣装の立ち絵" loading="lazy"></figure>
+        <figure><img src="assets/stand-crown.jpg" alt="王冠の衣装の立ち絵" loading="lazy" style="object-position:50% 20%"></figure>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section class="panel" id="news" role="tabpanel" aria-labelledby="t-news">
+      <h2 class="h" style="margin-top:6px">NEWS <span>お知らせ</span><i class="badge">SAMPLE</i></h2>
+      <div class="list" id="newsFull"></div>
+    </section>
+
+    <!-- LIVE -->
+    <section class="panel" id="live" role="tabpanel" aria-labelledby="t-live">
+      <h2 class="h" style="margin-top:6px">THIS WEEK <span>今週の配信予定</span><i class="badge">SAMPLE</i></h2>
+      <div class="week" id="weekFull"></div>
+      <div id="dayEvt"></div>
+      <h2 class="h">ARCHIVE <span>アーカイブ</span><i class="badge">SAMPLE</i></h2>
+      <div class="thumbs" id="archive"></div>
+    </section>
+
+    <!-- MUSIC -->
+    <section class="panel" id="music" role="tabpanel" aria-labelledby="t-music">
+      <h2 class="h" style="margin-top:6px">SONG LIST <span>歌える曲リスト</span><i class="badge">SAMPLE</i></h2>
+      <div class="filter" id="songFilter"></div>
+      <div class="list songs" id="songs"></div>
+      <h2 class="h">WORKS <span>楽曲・作品</span><i class="badge">SAMPLE</i></h2>
+      <div class="thumbs" id="works"></div>
+      <h2 class="h">VIDEO <span>MV・歌唱動画</span><i class="badge">SAMPLE</i></h2>
+      <div class="thumbs" id="videos"></div>
+    </section>
+
+    <!-- FAN -->
+    <section class="panel" id="fan" role="tabpanel" aria-labelledby="t-fan">
+      <h2 class="h" style="margin-top:6px">OMIKUJI <span>おみくじ</span></h2>
+      <div class="card fc omi">
+        <h3>今日のおみくじ</h3>
+        <p class="lead">1日1回ひけるよ。今日の運勢は…？</p>
+        <button type="button" class="omi-btn" id="omiBtn">おみくじをひく</button>
+        <div class="omi-res" id="omiRes" aria-live="polite">
+          <div class="rk" id="omiRk"></div><div class="st" id="omiSt"></div>
+          <div class="ms" id="omiMs"></div><div class="li" id="omiLi"></div>
+        </div>
+        <p class="omi-note" id="omiNote"></p>
+      </div>
+
+      <h2 class="h">STAMP CARD <span>スタンプカード</span></h2>
+      <div class="card fc">
+        <h3>来てくれてありがとうカード</h3>
+        <p class="lead">1日1回スタンプがおせます。10こためるとコンプリート！</p>
+        <div class="stamps" id="stamps"></div>
+        <button type="button" class="omi-btn" id="stampBtn">今日のスタンプをおす</button>
+        <div class="stamp-msg" id="stampMsg" aria-live="polite"></div>
+        <div style="text-align:center"><button type="button" class="sub-btn" id="stampReset" hidden>はじめからやり直す</button></div>
+      </div>
+
+      <h2 class="h">MESSAGE <span>匿名メッセージ</span></h2>
+      <div class="card fc">
+        <h3>えぬﾀﾝｺにメッセージを送る</h3>
+        <p class="lead">お名前は不要。応援やひとことをどうぞ。</p>
+        <form class="f" id="msgForm" novalidate>
+          <label>メッセージ<textarea id="msgBody" maxlength="200" placeholder="やさしい言葉でお願いします" required></textarea></label>
+          <div class="cnt"><span id="msgCnt">0</span> / 200</div>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="omi-btn">送信する</button>
+          <p class="note">※送信された内容は配信などで紹介されることがあります。個人情報は書かないでね。</p>
+        </form>
+      </div>
+
+      <h2 class="h">CONTACT <span>お問い合わせ</span></h2>
+      <div class="card fc">
+        <h3>お仕事・ご連絡はこちら</h3>
+        <p class="lead">返信が必要な方は連絡先も書いてください。</p>
+        <form class="f" id="ctForm" novalidate>
+          <label>お名前<input id="ctName" type="text" maxlength="40" autocomplete="name" required></label>
+          <label>連絡先(メールまたはSNS)<input id="ctMail" type="text" maxlength="80" required></label>
+          <label>内容<textarea id="ctBody" maxlength="1000" required></textarea></label>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="omi-btn">送信する</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- LINKS -->
+    <section class="panel" id="links" role="tabpanel" aria-labelledby="t-links">
+      <h2 class="h" style="margin-top:6px">SNS <span>各種リンク</span></h2>
+      <div class="links">
+        <a class="lk" aria-disabled="true"><span><span class="ic">X</span>　えぬﾀﾝｺ</span><em>準備中</em></a>
+        <a class="lk" aria-disabled="true"><span><span class="ic">YOUTUBE</span></span><em>準備中</em></a>
+        <a class="lk" aria-disabled="true"><span><span class="ic">TIKTOK</span></span><em>準備中</em></a>
+        <a class="lk" aria-disabled="true"><span><span class="ic">MIRRATIV</span></span><em>準備中</em></a>
+        <a class="lk" aria-disabled="true"><span><span class="ic">TWITCH</span></span><em>準備中</em></a>
+      </div>
+      <h2 class="h">SHOP <span>ショップ・販売ページ</span></h2>
+      <div class="card soon">ショップへのリンクは準備中です。</div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© えぬﾀﾝｺ</div>
+    <div class="cr">制作：イロハミント（湊音ヒロ）</div>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<noscript><p style="position:relative;z-index:5;text-align:center;padding:20px;color:#fff">このサイトはJavaScriptを有効にしてご覧ください。</p></noscript>
+</body>
+</html>
