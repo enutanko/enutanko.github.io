@@ -1,7 +1,7 @@
 /* 試作用の簡易パスワード。本番公開時は ENABLED を false にする(または gate.js の読み込みを消す) */
 (function(){
   var ENABLED=true;
-  var HASH='16c9b2b28566642095fe85fb495e989728ac4a7032ee42ca4a983b402b07993b';
+  var HASH='4d364fbb3786fc31157cc1e2a2671aac0e36348ae9d6b4ba4459ee883c240fe8';
   var ok=!ENABLED;
   try{ if(sessionStorage.getItem('gate-ok')==='1') ok=true; }catch(e){}
   window.__unlocked=ok;
@@ -25,8 +25,8 @@
   }
   document.addEventListener('DOMContentLoaded',function(){
     var g=document.createElement('div');g.id='gate';
-    g.innerHTML='<form class="box"><h1>PREVIEW</h1><p>制作中の確認用ページです。<br>パスワードを入力してください。</p>'
-      +'<input type="password" autocomplete="off" placeholder="パスワード" aria-label="パスワード"><button type="submit">ひらく</button><div class="err"></div></form>';
+    g.innerHTML='<form class="box"><h1>PREVIEW</h1><p>制作中の確認用ページです。<br>4桁の数字を入力してください。</p>'
+      +'<input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="4桁の数字" aria-label="パスワード"><button type="submit">ひらく</button><div class="err"></div></form>';
     document.body.appendChild(g);
     var f=g.querySelector('form'),i=g.querySelector('input'),e=g.querySelector('.err');
     f.addEventListener('submit',function(ev){
