@@ -81,7 +81,7 @@ function toast(m){var e=document.getElementById('toast');e.textContent=m;e.class
     le.innerHTML=DATA.songs.map(function(s,i){return [s,i]}).filter(function(p){return cur==='すべて'||p[0].g===cur}).map(function(p){
       var s=p[0],i=p[1];
       return '<div class="row"><div><div class="tt">'+esc(s.t)+'</div><div class="ds">'+esc(s.a)+'<span class="tag t3" style="margin:0 0 0 8px">'+esc(s.g)+'</span></div></div>'+
-        '<button type="button" class="btn'+(done[i]?' done':'')+'" data-i="'+i+'">'+(done[i]?'送信ずみ':'リクエスト')+'</button></div>';
+        '<button type="button" class="btn'+(done[i]?' done':'')+'" data-i="'+i+'">'+(done[i]?'送信済み':'リクエスト')+'</button></div>';
     }).join('');
   }
   fe.addEventListener('click',function(e){var b=e.target.closest('.fbtn');if(!b)return;cur=b.dataset.g;render()});
