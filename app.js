@@ -279,7 +279,16 @@ if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){try{navi
     x.globalAlpha=1;
     if(!reduce)requestAnimationFrame(frame);
   }
-  size();addEventListener('resize',size);
+  size();
+  // スマホはスクロールでアドレスバーが出入りして resize が飛ぶ。そのたびに雪を作り直すと
+  // 急に動いたように見えるので、横幅が変わらない小さな高さ変化は雪をそのままにして描画サイズだけ更新する
+  var lastW=innerWidth;
+  addEventListener('resize',function(){
+    if(innerWidth===lastW&&Math.abs(innerHeight-H)<220){
+      H=innerHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+    }else{lastW=innerWidth;size();}
+  });
   document.addEventListener('visibilitychange',function(){last=0});
+  addEventListener('pageshow',function(){last=0});
   requestAnimationFrame(frame);
 })();
