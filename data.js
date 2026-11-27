@@ -6,7 +6,8 @@
 
 /* 設定 */
 var CONFIG={
-  endpoint:'',        // 匿名メッセージ/お問い合わせの送信先URL(未設定の間は「サンプル動作」になります)
+  // 管理画面のデータ置き場(Supabase)。管理画面から更新した内容はここから読み込みます
+  sb:{url:'https://uglxilcwbgqoofnzngux.supabase.co',key:'sb_publishable_R83zSq90hslRd5jl04sIPg_hZlLxfRC'},
   xHandle:'n_tanko78940'  // Xのアカウント名(@なし)。HOMEの最新ポスト欄に使います
 };
 

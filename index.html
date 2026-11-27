@@ -66,11 +66,11 @@
         </div>
       </div>
 
-      <h2 class="h">THIS WEEK <span>今週の配信予定</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h">THIS WEEK <span>今週の配信予定</span><i class="badge" data-k="schedule">SAMPLE</i></h2>
       <div class="week" id="weekMini"></div>
       <div id="nextEvt"></div>
 
-      <h2 class="h">NEWS <span>お知らせ</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h">NEWS <span>お知らせ</span><i class="badge" data-k="news">SAMPLE</i></h2>
       <div class="list" id="newsMini"></div>
 
       <h2 class="h">X POST <span>最新のポスト</span></h2>
@@ -100,7 +100,7 @@
             <div class="chips"><span class="chip solid">配信者</span><span class="chip solid">歌い手</span></div>
           </div>
         </div>
-        <p class="soon" style="margin-top:14px">プロフィール文は準備中です。</p>
+        <p class="soon" id="pfText" style="margin-top:14px">プロフィール文は準備中です。</p>
       </div>
       <h2 class="h">GALLERY <span>イラスト</span></h2>
       <div class="gallery">
@@ -111,27 +111,27 @@
 
     <!-- NEWS -->
     <section class="panel" id="news" role="tabpanel" aria-labelledby="t-news">
-      <h2 class="h" style="margin-top:6px">NEWS <span>お知らせ</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h" style="margin-top:6px">NEWS <span>お知らせ</span><i class="badge" data-k="news">SAMPLE</i></h2>
       <div class="list" id="newsFull"></div>
     </section>
 
     <!-- LIVE -->
     <section class="panel" id="live" role="tabpanel" aria-labelledby="t-live">
-      <h2 class="h" style="margin-top:6px">THIS WEEK <span>今週の配信予定</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h" style="margin-top:6px">THIS WEEK <span>今週の配信予定</span><i class="badge" data-k="schedule">SAMPLE</i></h2>
       <div class="week" id="weekFull"></div>
       <div id="dayEvt"></div>
-      <h2 class="h">ARCHIVE <span>アーカイブ</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h">ARCHIVE <span>アーカイブ</span><i class="badge" data-k="archive">SAMPLE</i></h2>
       <div class="thumbs" id="archive"></div>
     </section>
 
     <!-- MUSIC -->
     <section class="panel" id="music" role="tabpanel" aria-labelledby="t-music">
-      <h2 class="h" style="margin-top:6px">SONG LIST <span>歌える曲リスト</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h" style="margin-top:6px">SONG LIST <span>歌える曲リスト</span><i class="badge" data-k="songs">SAMPLE</i></h2>
       <div class="filter" id="songFilter"></div>
       <div class="list songs" id="songs"></div>
-      <h2 class="h">WORKS <span>楽曲・作品</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h">WORKS <span>楽曲・作品</span><i class="badge" data-k="works">SAMPLE</i></h2>
       <div class="thumbs" id="works"></div>
-      <h2 class="h">VIDEO <span>MV・歌唱動画</span><i class="badge">SAMPLE</i></h2>
+      <h2 class="h">VIDEO <span>MV・歌唱動画</span><i class="badge" data-k="videos">SAMPLE</i></h2>
       <div class="thumbs" id="videos"></div>
     </section>
 
@@ -208,7 +208,7 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 
-<script>if(window.__unlocked){document.write('<script src="data.js"><\/script><script src="app.js"><\/script>')}</script>
+<script>if(window.__unlocked){document.write('<script src="data.js"><\/script><script src="remote.js"><\/script>')}</script>
 <noscript><p style="position:relative;z-index:5;text-align:center;padding:20px;color:#fff">このサイトはJavaScriptを有効にしてご覧ください。</p></noscript>
 </body>
 </html>

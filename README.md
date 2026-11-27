@@ -30,3 +30,10 @@ http://localhost:8000/ を開く。
 - `index.html` 画面構成 / `style.css` 見た目 / `app.js` 動き / `data.js` 更新データ
 - `manifest.webmanifest` `sw.js` ホーム画面追加・オフライン対応
 - `404.html` 見つからないときの案内
+
+
+## 管理画面(HP更新ページ)
+- `/admin/` が管理画面です。合言葉を入れて、お知らせ・配信予定・歌える曲・作品/動画・プロフィール・受信箱を更新できます。
+- データは Supabase(`enu_get` などの関数)に保存され、サイトは開くたびに読み込みます。つながらないときは前回の内容 → `data.js` のサンプル、の順で表示します。
+- 初回だけ `admin/setup.sql` を Supabase の SQL Editor で実行します(最後の行の合言葉を書き換えてから)。
+- 試作用の鍵(`gate.js`)は、公開時に `ENABLED=false` にします。

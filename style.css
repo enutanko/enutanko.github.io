@@ -230,3 +230,6 @@ form.f{display:grid;gap:10px}
 @media (prefers-reduced-motion:reduce){
   .hero2 .mascot,.opening .ch,.opening .tap,.opening .lg{animation:none}.panel{animation:none}html{scroll-behavior:auto}
 }
+
+.pftext{margin:14px 0 0;line-height:1.9;font-size:14px;color:#eaf4ff}
+a.thl{display:block;color:inherit;text-decoration:none}

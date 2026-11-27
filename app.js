@@ -17,6 +17,14 @@
 function esc(v){return String(v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function toast(m){var e=document.getElementById('toast');e.textContent=m;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove('on')},2200)}
 
+/* 管理画面で更新済みの項目は SAMPLE の印を外す / プロフィール文 */
+(function(){
+  var live=window.ENU_LIVE||{};
+  [].slice.call(document.querySelectorAll('.badge[data-k]')).forEach(function(b){if(live[b.dataset.k])b.style.display='none'});
+  var pf=DATA.profile&&DATA.profile.text;
+  if(pf){var el=document.getElementById('pfText');el.className='pftext';el.removeAttribute('style');el.innerHTML=esc(pf).replace(/\n/g,'<br>')}
+})();
+
 /* news */
 (function(){
   function row(n){return '<div class="row"><div class="dt">'+esc(n.d)+'</div><div><div class="tt"><span class="tag">'+esc(n.tag)+'</span>'+esc(n.t)+'</div><div class="ds">'+esc(n.s)+'</div></div></div>'}
@@ -65,7 +73,10 @@ function toast(m){var e=document.getElementById('toast');e.textContent=m;e.class
 
 /* archive / works / videos */
 (function(){
-  function th(x){return '<div class="th"><div class="im '+x.c+'"></div><div class="cap">'+esc(x.t)+'<small>'+esc(x.s)+'</small></div></div>'}
+  function th(x){
+    var h='<div class="th"><div class="im '+esc(x.c||'')+'"></div><div class="cap">'+esc(x.t)+'<small>'+esc(x.s||'')+'</small></div></div>';
+    return /^https:\/\//.test(x.u||'')?'<a class="thl" href="'+esc(x.u)+'" target="_blank" rel="noopener">'+h+'</a>':h;
+  }
   document.getElementById('archive').innerHTML=DATA.archive.map(th).join('');
   document.getElementById('works').innerHTML=DATA.works.map(th).join('');
   document.getElementById('videos').innerHTML=DATA.videos.map(th).join('');
@@ -85,7 +96,10 @@ function toast(m){var e=document.getElementById('toast');e.textContent=m;e.class
     }).join('');
   }
   fe.addEventListener('click',function(e){var b=e.target.closest('.fbtn');if(!b)return;cur=b.dataset.g;render()});
-  le.addEventListener('click',function(e){var b=e.target.closest('.btn');if(!b||done[b.dataset.i])return;done[b.dataset.i]=1;render();toast('リクエストしました（サンプル表示です）')});
+  le.addEventListener('click',function(e){var b=e.target.closest('.btn');if(!b||done[b.dataset.i])return;
+    var i=b.dataset.i,sg=DATA.songs[i];done[i]=1;render();
+    enuSend('request',{body:'「'+sg.t+'」'+(sg.a?' / '+sg.a:'')}).then(function(r){toast(r==='demo'?'リクエストしました（サンプル表示です）':'リクエストしました！')},function(){done[i]=0;render();toast('送信できませんでした。もう一度ためしてね')});
+  });
   render();
 })();
 
@@ -172,10 +186,9 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
     if(form.querySelector('.hp').value){return} // bot
     if(Date.now()-last<20000){toast('少し待ってから送ってね');return}
     last=Date.now();
-    if(!CONFIG.endpoint){toast('サンプル表示です（まだ届きません）');done();return}
-    fetch(CONFIG.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({type:type},payload))})
-      .then(function(r){if(!r.ok)throw 0;toast('送信しました。ありがとう！');done()})
-      .catch(function(){last=0;toast('送信できませんでした。もう一度ためしてね')});
+    enuSend(type,payload).then(function(r){
+      toast(r==='demo'?'サンプル表示です（まだ届きません）':'送信しました。ありがとう！');done()
+    },function(){last=0;toast('送信できませんでした。もう一度ためしてね')});
   }
   var mb=document.getElementById('msgBody'),mc=document.getElementById('msgCnt');
   mb.addEventListener('input',function(){mc.textContent=mb.value.length});
