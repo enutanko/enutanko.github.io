@@ -119,15 +119,15 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
   document.documentElement.style.overflow='hidden';
 
   /* ふわふわ上っていく王冠・ハート・星・雪 */
-  var mo=document.getElementById('opMotifs'),G=['♡','♛','★','❄','✦','♡','✧','❄'];
-  if(!reduce)for(var i=0;i<22;i++){
+  var mo=document.getElementById('opMotifs'),G=['♡','♛','★','❄','✦','♡','♛','✧','❄','♡'];
+  if(!reduce)for(var i=0;i<46;i++){
     var m=document.createElement('span');m.textContent=G[i%G.length];
-    var big=Math.random()<.25;
+    var big=Math.random()<.35;
     m.style.left=(Math.random()*96+2)+'%';
-    m.style.fontSize=(big?22+Math.random()*14:10+Math.random()*10)+'px';
-    m.style.setProperty('--du',(9+Math.random()*9)+'s');
+    m.style.fontSize=(big?26+Math.random()*24:12+Math.random()*12)+'px';
+    m.style.setProperty('--du',(6+Math.random()*7)+'s');
     m.style.setProperty('--de',(-Math.random()*14+(i<4?0:0))+'s');
-    m.style.setProperty('--op',(big?.55:.35+Math.random()*.3).toFixed(2));
+    m.style.setProperty('--op',(big?.7:.4+Math.random()*.3).toFixed(2));
     m.style.setProperty('--rt',((Math.random()-.5)*160)+'deg');
     mo.appendChild(m);
   }
@@ -165,15 +165,41 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
   }
   if(!reduce)requestAnimationFrame(frame);
 
-  /* はじまりの流れ星: 右上 → ロゴのあたりへ */
+  /* はじまりの流れ星: 3本が右上からロゴへ直撃 → 点灯 */
   var mt=document.getElementById('opMeteor');
+  function burstAt(x,y,n,rmin,rmax,life){
+    var g=['★','✦','♡','❄','✧','♛'],cols=['#fff','#bfe6ff','#fff6b0','#ffd6ec'];
+    for(var i=0;i<n;i++){var e=document.createElement('span');e.className='spark';e.textContent=g[i%g.length];
+      var an=Math.random()*6.28,r=rmin+Math.random()*(rmax-rmin);e.style.left=x+'px';e.style.top=y+'px';e.style.color=cols[i%cols.length];
+      e.style.fontSize=(12+Math.random()*20)+'px';
+      e.style.setProperty('--dx',Math.cos(an)*r+'px');e.style.setProperty('--dy',Math.sin(an)*r+'px');
+      document.body.appendChild(e);(function(n){setTimeout(function(){n.remove()},life||1000)})(e)}
+  }
   if(!reduce&&mt&&mt.animate){
-    var sx=innerWidth+40,sy=-20,ex=innerWidth*.22,ey=innerHeight*.30,ang=Math.atan2(ey-sy,ex-sx)*180/Math.PI;
-    mt.animate([
-      {opacity:0,transform:'translate('+sx+'px,'+sy+'px) rotate('+ang+'deg)'},
-      {opacity:1,offset:.15},{opacity:1,offset:.8},
-      {opacity:0,transform:'translate('+ex+'px,'+ey+'px) rotate('+ang+'deg)'}
-    ],{duration:750,delay:50,easing:'ease-in',fill:'both'});
+    var lgEl=document.getElementById('opLogo'),lr=lgEl?lgEl.getBoundingClientRect():null;
+    var ex=lr&&lr.width?lr.left+lr.width*.5:innerWidth*.5,ey=lr&&lr.height?lr.top+lr.height*.5:innerHeight*.38;
+    var M=[{dx:0,dy:0,d:0,w:280,h:4,o:1},{dx:90,dy:-40,d:130,w:190,h:3,o:.85},{dx:-110,dy:-70,d:260,w:150,h:2,o:.7}];
+    M.forEach(function(p,k){
+      var el=k?mt.cloneNode(false):mt;if(k){el.removeAttribute('id');mt.parentNode.appendChild(el)}
+      el.style.width=p.w+'px';el.style.height=p.h+'px';
+      var sx=innerWidth+60+p.dx*.6,sy=-40+p.dy*.4,tx=ex+p.dx*.25,ty=ey+p.dy*.25;
+      var ang=Math.atan2(ty-sy,tx-sx)*180/Math.PI;
+      el.animate([
+        {opacity:0,transform:'translate('+(sx-p.w)+'px,'+sy+'px) rotate('+ang+'deg)'},
+        {opacity:p.o,offset:.12},{opacity:p.o,offset:.85},
+        {opacity:0,transform:'translate('+(tx-p.w)+'px,'+ty+'px) rotate('+ang+'deg)'}
+      ],{duration:720,delay:40+p.d,easing:'cubic-bezier(.5,0,.9,.6)',fill:'both'});
+      if(k===0){ /* 尾に星くずをこぼす */
+        var N=16;for(var n=1;n<=N;n++)(function(n){var u=n/N;setTimeout(function(){
+          var q=Math.pow(u,1.7),x=sx+(tx-sx)*q,y=sy+(ty-sy)*q;
+          var s=document.createElement('span');s.className='op-trail';s.textContent=n%3?'✦':'★';
+          s.style.left=x+'px';s.style.top=y+'px';s.style.fontSize=(9+Math.random()*10)+'px';
+          s.style.setProperty('--dy',(10+Math.random()*26)+'px');
+          o.appendChild(s);setTimeout(function(){s.remove()},800)},40+720*u)})(n);
+      }
+    });
+    /* 衝突: 光がはじけてロゴが点灯 */
+    setTimeout(function(){burstAt(ex,ey,22,90,260,1100);var f=document.createElement('div');f.className='op-flash';o.appendChild(f);setTimeout(function(){f.remove()},900)},780);
   }
 
   /* タップ: ロゴがヘッダーへ飛んでいく + 光の輪 + きらきら */
@@ -181,12 +207,7 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
   function go(ev){
     if(busy)return;busy=true;
     var x=ev&&ev.clientX||innerWidth/2,y=ev&&ev.clientY||innerHeight/2;
-    var g=['★','✦','♡','❄','✧','♛'],cols=['#fff','#bfe6ff','#fff6b0','#ffd6ec'];
-    if(!reduce)for(var i=0;i<14;i++){var e=document.createElement('span');e.className='spark';e.textContent=g[i%g.length];
-      var a=Math.random()*6.28,r=70+Math.random()*150;e.style.left=x+'px';e.style.top=y+'px';e.style.color=cols[i%cols.length];
-      e.style.fontSize=(12+Math.random()*16)+'px';
-      e.style.setProperty('--dx',Math.cos(a)*r+'px');e.style.setProperty('--dy',Math.sin(a)*r+'px');
-      document.body.appendChild(e);(function(n){setTimeout(function(){n.remove()},1000)})(e)}
+    if(!reduce)burstAt(x,y,36,80,280,1000);
     var stage=document.getElementById('opStage'),lg=document.getElementById('opLogo'),hd=document.querySelector('.logo-wrap img');
     window.scrollTo(0,0);
     var fly=null;
