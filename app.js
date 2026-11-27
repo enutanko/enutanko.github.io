@@ -133,7 +133,7 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
   }
 
   /* 夜空: またたく星・流れ星・雪 */
-  var cv=document.getElementById('opSky'),cx=cv.getContext('2d'),W,H,dpr,st=[],sn=[],shoot=null,nextShoot=1800,alive=true,t0=0,lastT=0;
+  var cv=document.getElementById('opSky'),cx=cv.getContext('2d'),W,H,dpr,st=[],sn=[],shoot=null,nextShoot=3500,alive=true,t0=0,lastT=0;
   function fit(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
     st=[];for(var i=0;i<110;i++)st.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.3,p:Math.random()*6.28,s:Math.random()*2+.8});
     sn=[];for(var j=0;j<38;j++)sn.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.2+.6,v:20+Math.random()*40,ph:Math.random()*6.28});
@@ -143,7 +143,7 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
     if(!alive)return;
     if(!t0)t0=t;var dt=Math.min(.05,(t-(lastT||t))/1000);lastT=t;var el=t-t0;
     cx.clearRect(0,0,W,H);
-    var fade=Math.min(1,el/1400);
+    var fade=Math.min(1,el/900);
     st.forEach(function(s){
       var a=(.25+.75*Math.abs(Math.sin(s.p+el/1000*s.s)))*fade;
       cx.fillStyle='rgba(225,243,255,'+a+')';cx.beginPath();cx.arc(s.x,s.y,s.r,0,6.283);cx.fill();
@@ -165,14 +165,24 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
   }
   if(!reduce)requestAnimationFrame(frame);
 
+  /* はじまりの流れ星: 右上 → ロゴのあたりへ */
+  var mt=document.getElementById('opMeteor');
+  if(!reduce&&mt&&mt.animate){
+    var sx=innerWidth+40,sy=-20,ex=innerWidth*.22,ey=innerHeight*.30,ang=Math.atan2(ey-sy,ex-sx)*180/Math.PI;
+    mt.animate([
+      {opacity:0,transform:'translate('+sx+'px,'+sy+'px) rotate('+ang+'deg)'},
+      {opacity:1,offset:.15},{opacity:1,offset:.8},
+      {opacity:0,transform:'translate('+ex+'px,'+ey+'px) rotate('+ang+'deg)'}
+    ],{duration:750,delay:50,easing:'ease-in',fill:'both'});
+  }
+
   /* タップ: ロゴがヘッダーへ飛んでいく + 光の輪 + きらきら */
   var busy=false;
   function go(ev){
     if(busy)return;busy=true;
     var x=ev&&ev.clientX||innerWidth/2,y=ev&&ev.clientY||innerHeight/2;
-    var ring=document.getElementById('opRing');ring.style.left=x+'px';ring.style.top=y+'px';ring.classList.add('on');
     var g=['★','✦','♡','❄','✧','♛'],cols=['#fff','#bfe6ff','#fff6b0','#ffd6ec'];
-    if(!reduce)for(var i=0;i<30;i++){var e=document.createElement('span');e.className='spark';e.textContent=g[i%g.length];
+    if(!reduce)for(var i=0;i<14;i++){var e=document.createElement('span');e.className='spark';e.textContent=g[i%g.length];
       var a=Math.random()*6.28,r=70+Math.random()*150;e.style.left=x+'px';e.style.top=y+'px';e.style.color=cols[i%cols.length];
       e.style.fontSize=(12+Math.random()*16)+'px';
       e.style.setProperty('--dx',Math.cos(a)*r+'px');e.style.setProperty('--dy',Math.sin(a)*r+'px');
